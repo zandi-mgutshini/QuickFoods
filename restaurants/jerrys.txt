@@ -1,0 +1,20 @@
+Jerry's Burgers
+Cape Town
+021 321 4565
+Chicken Nuggets, 68.00
+Spicy Prawns, 75.00
+Chilli Con Carne, 65.00
+Spicy Nachos, 78.00
+Chilli Fries, 85.00
+Standard Burger, 80.00
+Cheese Burger, 110.00
+BBQ Burger, 110.00
+Chicken Burger, 165.00
+Bacon Cheese Burger, 115.00
+Caesar Salad, 90.00
+Greek Salad, 125.00
+Rump Steak, 195.00
+Pork Ribs, 215.00
+Margarita Pizza, 125.00
+Hawaiian Pizza, 125.00
+Spicy Chicken Pizza, 150

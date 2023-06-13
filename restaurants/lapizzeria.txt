@@ -1,0 +1,15 @@
+La Pizzeria
+Durban
+031 555 7890
+Margherita Pizza, 70.00
+Hawaiian Pizza, 85.00
+Pepperoni Pizza, 90.00
+Vegetarian Pizza, 80.00
+Mediterranean Pizza, 95.00
+Four Cheese Pizza, 100.00
+Meat Lovers Pizza, 110.00
+BBQ Chicken Pizza, 105.00
+Seafood Pizza, 120.00
+Garlic Bread, 45.00
+Caprese Salad, 65.00
+Tiramisu, 80.00

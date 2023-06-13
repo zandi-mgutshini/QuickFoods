@@ -1,0 +1,12 @@
+Sushi Delight
+Port Elizabeth
+021 777 8888
+California Roll, 60.00
+Salmon Nigiri (2 pieces), 55.00
+Tuna Sashimi (5 pieces), 75.00
+Rainbow Roll, 85.00
+Tempura Shrimp Roll, 80.00
+Vegetable Maki, 50.00
+Seaweed Salad, 45.00
+Miso Soup, 35.00
+Green Tea Ice Cream, 40.00

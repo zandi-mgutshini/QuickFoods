@@ -1,0 +1,20 @@
+Hudson's Burger Joint
+Durban
+011 000 4565
+Chicken Strips, 68.00
+Tempura Prawns, 75.00
+Chilli Poppers, 65.00
+Spicy Wings, 78.00
+Mini Nachos, 85.00
+Hudson Burger, 80.00
+Cheese Burger, 100.00
+Original Royale Burger, 110.00
+Wagyu Burger, 165.00
+Bacon Jam Burger, 115.00
+Caesar Salad, 90.00
+Howling Wolf Salad, 125.00
+Sirloin Steak, 195.00
+Pork Ribs, 215.00
+Rockstar Pizza, 125.00
+Surfer Pizza, 125.00
+Mexicana Pizza, 150
