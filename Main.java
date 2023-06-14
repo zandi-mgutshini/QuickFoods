@@ -95,7 +95,7 @@ class Main {
             isMakingARestaurantInput = isMakingARestaurantInput.toLowerCase();
 
             switch (isMakingARestaurantInput) {
-                case "yes", "y" -> isMakingNewRestaurant = true;
+                case "yes", "y" -> System.out.println(" ");
                 case "no", "n" -> isMakingNewRestaurant = false;
                 default -> {
                     isMakingNewRestaurant = false;
