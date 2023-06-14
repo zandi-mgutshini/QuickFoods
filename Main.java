@@ -1,105 +1,109 @@
 import java.util.ArrayList;
-import java.util.NoSuchElementException;
-import java.util.Scanner;  // Import the Scanner class
+import java.util.Scanner;
 
 class Main {
     public static void main(String[] args) {
         ArrayList<Customer> customerList = new ArrayList<>();
         ArrayList<Restaurant> restaurantsList = new ArrayList<>();
 
-        // Creating a customer object with user input and scanner
-        Scanner scannerName = new Scanner(System.in);
+        // Opening the scanner for all user input
+        Scanner scannerUserInput = new Scanner(System.in);
+
         System.out.println("Enter your Name and Surname: ");
-        String customerName = scannerName.nextLine();
+        String customerName = scannerUserInput.nextLine();
         System.out.println("Hello, " + customerName + "!");
         System.out.println("Name: " + customerName);
-        scannerName.close();
 
-        Scanner scannerEmail = new Scanner(System.in);
         System.out.println("Enter your email address: ");
-        String customerEmail;
-        try {
-            customerEmail = scannerEmail.nextLine();
-            System.out.println("Email address: " + customerEmail );
-            scannerEmail.close();
-        }
-        catch (NoSuchElementException e) {
-            System.out.println("There was no next()");
-            customerEmail = "email@email.com";
-        }
+        String customerEmail = scannerUserInput.nextLine();
+        System.out.println("Email address: " + customerEmail );
 
-        Scanner scannerPhone = new Scanner(System.in);
-        System.out.println("Enter your email address: ");
-        String customerPhone = scannerPhone.nextLine();
+        System.out.println("Enter your phone number: ");
+        String customerPhone = scannerUserInput.nextLine();
         System.out.println("Phone number: " + customerPhone);
-        scannerPhone.close();
 
-        Scanner scannerLocation = new Scanner(System.in);
         System.out.println("Enter your city: ");
-        String customerLocation = scannerLocation.nextLine();
+        String customerLocation = scannerUserInput.nextLine();
         System.out.println("Location: " + customerLocation );
-        scannerLocation.close();
 
-        Scanner scannerAddress = new Scanner(System.in);
         System.out.println("Enter your street address: ");
-        String customerAddress = scannerAddress.nextLine();
+        String customerAddress = scannerUserInput.nextLine();
         System.out.println("Street address: " + customerAddress);
-        scannerAddress.close();
+
         Customer newCustomer = new Customer(customerName, customerEmail, customerPhone, customerLocation, customerAddress);
         newCustomer.printCustomerSummary();
+        customerList.add(newCustomer);
 
-        Boolean isMakingNewRestaurant;
-        Scanner scannerIsMakingRestaurant = new Scanner(System.in);
+        boolean isMakingNewRestaurant;
         System.out.println("Would you like to make a new restaurant? Enter 'yes' or 'no' ");
-        String isMakingARestaurantInput = scannerIsMakingRestaurant.nextLine();
+        String isMakingARestaurantInput = scannerUserInput.nextLine();
         isMakingARestaurantInput = isMakingARestaurantInput.toLowerCase();
-        scannerIsMakingRestaurant.close();
 
-        switch(isMakingARestaurantInput) {
-            case "yes", "y":
-                isMakingNewRestaurant = true;
-                break;
-            case "no", "n":
-                isMakingNewRestaurant = false;
-                break;
-            default:
+        switch (isMakingARestaurantInput) {
+            case "yes", "y" -> isMakingNewRestaurant = true;
+            case "no", "n" -> isMakingNewRestaurant = false;
+            default -> {
                 isMakingNewRestaurant = false;
                 System.out.println("Your response could not be identified.");
+            }
         }
 
-        while (isMakingNewRestaurant == true) {
+        while (isMakingNewRestaurant) {
             System.out.println("You are now creating a new restaurant.");
-            Scanner scannerRestaurantName = new Scanner(System.in);
+
             System.out.println("What is the name of your new restaurant? Enter restaurant name: ");
-            String restaurantName = scannerRestaurantName.nextLine();
-            System.out.println("Restaurant Name: " + restaurantName);
-            scannerRestaurantName.close();
+            String newRestaurantName = scannerUserInput.nextLine();
+            System.out.println("Creating the restaurant called " + newRestaurantName);
 
-            Scanner scannerRestaurantLocation = new Scanner(System.in);
             System.out.println("Enter restaurant location: ");
-            String restaurantLocation = scannerRestaurantLocation.nextLine();
-            System.out.println("Restaurant Location: " + restaurantLocation);
-            scannerRestaurantLocation.close();
+            String newRestaurantLocation = scannerUserInput.nextLine();
+            System.out.println("Restaurant Location: " + newRestaurantLocation);
 
-            Scanner scannerRestaurantPhone = new Scanner(System.in);
             System.out.println("Enter restaurant phone: ");
-            String restaurantPhone = scannerRestaurantPhone.nextLine();
-            System.out.println("Restaurant Phone Number: " + restaurantPhone);
-            scannerRestaurantPhone.close();
+            String newRestaurantPhone = scannerUserInput.nextLine();
+            System.out.println("Restaurant Phone Number: " + newRestaurantPhone);
 
-            System.out.println("Now let's add items to " + restaurantName + "'s" + "menu.");
+            System.out.println("Now let's add items to " + newRestaurantName + "'s menu.");
+            System.out.println("How many menu items would you like to add to " + newRestaurantName + "'s menu? Enter an integer greater than 0 :");
+            String menuItemCountString = scannerUserInput.nextLine();
+            int menuItemCount = Integer.parseInt(menuItemCountString);
+            if (menuItemCount <= 0) {
+                menuItemCount = 1;
+                System.out.println("You must add at least 1 item to your menu");
+            }
+            System.out.println("You are adding " + menuItemCount + " items to the menu for " + newRestaurantName);
+            ArrayList<MenuItem> newRestaurantMenu = new ArrayList<>();
+            for (int k=1; k<= menuItemCount; k++) {
+                System.out.println("Enter menu item #" + k + "'s name. (e.g. Chicken Curry): ");
+                String mealName = scannerUserInput.nextLine();
+                System.out.println("Added " + mealName);
 
+                System.out.println("Enter the price of " + mealName + " without any currency symbols. (e.g. 24.95): ");
+                String mealPriceString = scannerUserInput.nextLine();
+                double mealPrice = Double.parseDouble(mealPriceString);
+                MenuItem newMenuItem = new MenuItem(mealName,mealPrice);
+                newRestaurantMenu.add(newMenuItem);
+            }
+            Restaurant newRestaurant = new Restaurant(newRestaurantName, newRestaurantLocation, newRestaurantPhone, newRestaurantMenu);
+            restaurantsList.add(newRestaurant);
+            System.out.println("You've successfully created a new restaurant.");
+            newRestaurant.printRestaurantSummary();
+            System.out.println("****************************************");
 
+            System.out.println("You have created" + restaurantsList.size() + " restaurant(s). Would you like to make another restaurant? Enter 'yes' or 'no' ");
+            isMakingARestaurantInput = scannerUserInput.nextLine();
+            isMakingARestaurantInput = isMakingARestaurantInput.toLowerCase();
 
-            /*
-            Scanner scannerIsMakingRestaurant = new Scanner(System.in);
-            System.out.println("Would you like to make a new restaurant? ");
-            String isMakingARestaurant = scannerIsMakingRestaurant.nextLine();
-            scannerIsMakingRestaurant.close();
-            */
+            switch (isMakingARestaurantInput) {
+                case "yes", "y" -> isMakingNewRestaurant = true;
+                case "no", "n" -> isMakingNewRestaurant = false;
+                default -> {
+                    isMakingNewRestaurant = false;
+                    System.out.println("Your response could not be identified.");
+                }
+            }
         }
 
-        System.out.println("Email address: " + customerEmail );
     }
 }
 
