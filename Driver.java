@@ -11,7 +11,7 @@ public class Driver {
 
     public Driver() {
         this.driverName = "Generic Driver";
-        this.driverLocation = "Unkown";
+        this.driverLocation = "Unknown";
         this.driverLoad = 0;
     }
 

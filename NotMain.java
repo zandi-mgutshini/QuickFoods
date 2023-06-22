@@ -18,6 +18,22 @@ public class NotMain {
         Restaurant restaurant10 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/spiceofindia.txt");
         Restaurant restaurant11 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/springboksteakhouse.txt");
         Restaurant restaurant12 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/sushidelight.txt");
+        ArrayList<Restaurant> restaurantsArrayList = new ArrayList<>();
+        restaurantsArrayList.add(restaurant1);
+        restaurantsArrayList.add(restaurant2);
+        restaurantsArrayList.add(restaurant3);
+        restaurantsArrayList.add(restaurant4);
+        restaurantsArrayList.add(restaurant5);
+        restaurantsArrayList.add(restaurant6);
+        restaurantsArrayList.add(restaurant7);
+        restaurantsArrayList.add(restaurant8);
+        restaurantsArrayList.add(restaurant9);
+        restaurantsArrayList.add(restaurant10);
+        restaurantsArrayList.add(restaurant11);
+        restaurantsArrayList.add(restaurant12);
+
+        printRestaurantsList(restaurantsArrayList);
+        restaurantsArrayList.get(0).printRestaurantMenu();
 
         // Reading the customer file to create customers
         int i = 0;
@@ -50,8 +66,8 @@ public class NotMain {
         System.out.println(testCustomer.getCustomerAddress());
         // Testing Menu Item and Order item
         MenuItem testMenuItem = new MenuItem("Chicken Schnitzel", 95.99);
-        OrderItem testOrderItem = new OrderItem(2, testMenuItem);
-        System.out.println(testOrderItem.printOrderItem());
+        InvoiceItem testInvoiceItem = new InvoiceItem(2, testMenuItem);
+        System.out.println(testInvoiceItem.printOrderItem());
         System.out.println("____________");
         // Testing Restaurant
         Restaurant testRestaurant = new Restaurant();
@@ -96,6 +112,13 @@ public class NotMain {
             return generatedRestaurant;
         }
 
+    }
+
+    public static void printRestaurantsList(ArrayList<Restaurant> restaurantsList) {
+        for(int i = 0; i<restaurantsList.size(); i++ ) {
+            int j = i + 1;
+            System.out.println( j + ". " + restaurantsList.get(i).getRestaurantName());
+        }
     }
 
 //        try {
