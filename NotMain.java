@@ -67,7 +67,7 @@ public class NotMain {
         // Testing Menu Item and Order item
         MenuItem testMenuItem = new MenuItem("Chicken Schnitzel", 95.99);
         InvoiceItem testInvoiceItem = new InvoiceItem(2, testMenuItem);
-        System.out.println(testInvoiceItem.printOrderItem());
+        System.out.println(testInvoiceItem.getInvoiceItemString());
         System.out.println("____________");
         // Testing Restaurant
         Restaurant testRestaurant = new Restaurant();
