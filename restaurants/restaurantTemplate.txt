@@ -1,0 +1,9 @@
+Restaurant Name
+Restaurant Location
+000 000 0000
+Name of Menu Item 1, 100.00
+Name of Menu Item 2, 90.00
+Name of Menu Item 3, 80.00
+Name of Menu Item 4, 70.00
+Name of Menu Item 5, 60.00
+Name of Menu Item n, 50.00

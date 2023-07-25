@@ -65,18 +65,17 @@ public class Restaurant {
         System.out.println("Menu for " + this.restaurantName + ":");
         for (int i = 0; i < this.restaurantMenu.size(); i++) {
             int j = i+1;
-            System.out.println(""+ j + ". " + this.restaurantMenu.get(i).mealName() + ", R" + this.restaurantMenu.get(i).mealPrice());
+            System.out.println(""+ j + ". " + this.restaurantMenu.get(i).getMenuItemString());
         }
     }
 
     public void printRestaurantSummary() {
         System.out.println("Restaurant: " + restaurantName + "\n" +
                             "Restaurant Location: " + restaurantLocation + "\n" +
-                            "Restaurant Phone Number: " + restaurantPhone + "\n");
-
-        System.out.println("Menu for " + restaurantName + " in " + restaurantLocation + ":");
+                            "Restaurant Phone Number: " + restaurantPhone);
+        System.out.println("Menu: ");
         for (MenuItem item: this.restaurantMenu) {
-            System.out.println(item.mealName() + ", R" + item.mealPrice());
+            System.out.println(item.getMenuItemString());
         }
     }
 }

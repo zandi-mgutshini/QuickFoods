@@ -13,6 +13,14 @@ public class Customer {
         this.customerAddress = customerAddress;
     }
 
+    public Customer() {
+        this.customerName = "customerName";
+        this.customerEmail = "customerEmail@admin.com";
+        this.customerPhone = "customerPhone";
+        this.customerLocation = "customerLocation";
+        this.customerAddress = "customerAddress";
+    }
+
     public String getCustomerName() {
         return customerName;
     }
@@ -33,12 +41,32 @@ public class Customer {
         return customerAddress;
     }
 
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public void setCustomerEmail(String customerEmail) {
+        this.customerEmail = customerEmail;
+    }
+
+    public void setCustomerPhone(String customerPhone) {
+        this.customerPhone = customerPhone;
+    }
+
+    public void setCustomerLocation(String customerLocation) {
+        this.customerLocation = customerLocation;
+    }
+
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
+    }
+
     // Used to generate the customer details invoice header
     public String customerSummaryString() {
         return  "Customer: " + customerName + '\n' +
                 "Email: " + customerEmail + '\n' +
                 "Phone Number: " + customerPhone + '\n' +
-                "Location: " + customerLocation + '\n' ;
+                "Location: " + customerLocation;
     }
 
     public void printCustomerSummary() {
@@ -46,6 +74,6 @@ public class Customer {
                 "Email: " + customerEmail + '\n' +
                 "Phone Number: " + customerPhone + '\n' +
                 "Location: " + customerLocation + '\n' +
-                "Address: " + customerAddress + '\n');
+                "Address: " + customerAddress);
     }
 }
