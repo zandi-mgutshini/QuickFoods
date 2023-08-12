@@ -53,8 +53,8 @@ public class DeliveryDriver {
 
     @Override
     public String toString() {
-        return "Driver name: " + driverName + ", " +
-                "Driver Location: " + driverLocation + ", " +
-                "Driver Load: " + driverLoad + '\n';
+        return " " + driverName + ", " +
+                driverLocation + ", " +
+                driverLoad ;
     }
 }

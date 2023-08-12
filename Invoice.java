@@ -118,7 +118,7 @@ public class Invoice {
 
     @Override
     public String toString() {
-        return "Order No:" + this.invoiceNumber + "\n" +
+        return "Order No: " + this.invoiceNumber + "\n" +
                 "Customer: " + this.invoiceCustomer.getCustomerName() + "\n" +
                 "Email: " + this.invoiceCustomer.getCustomerEmail() + "\n" +
                 "Cell: " + this.invoiceCustomer.getCustomerPhone() + "\n" +
@@ -127,7 +127,7 @@ public class Invoice {
                 this.invoiceItemQuantityPriceString() +
                 "Special instructions: " + this.invoiceSpecialInstructions + '\n' +
                 "Total: R" + String.format("%.2f", this.getInvoiceTotal())  + '\n' +
-                "Driver driver" + " is the nearest to the restaurant and so they will be delivering your order to you at:  \n " + this.invoiceCustomer.getCustomerAddress() + "\n" +
+                this.invoiceDriver.getDriverName() + " is the nearest to the restaurant and so they will be delivering your order to you at:  \n " + this.invoiceCustomer.getCustomerAddress() + "\n" +
                 "If you need to contact the restaurant, their number is " + this.invoiceRestaurant.getRestaurantPhone() + ". "
                 ;
     }

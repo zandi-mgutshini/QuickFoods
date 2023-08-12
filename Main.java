@@ -1,7 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Formatter;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
 // Note to self: Add functionality to ensure user input is not an empty string especially for createRestaurant & createCustomer name location, phone and address
 class Main {
     public static void main(String[] args) {
@@ -10,18 +13,18 @@ class Main {
         ArrayList<DeliveryDriver> deliveryDriversArrayList = new ArrayList<>();
         ArrayList<Invoice> invoicesArrayList = new ArrayList<>();
         // Generating restaurants from 12 text files bennys.txt, braairepublic.txt, coalgrill.txt, fishermanscatch.txt, hudsons.txt, jerrys.txt, lapizzeria.txt, mamaskitchen.txt, potchefstroomdelights.txt, spiceofindia.txt, springboksteakhouse.txt, sushidelight.txt
-        Restaurant restaurant1 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/bennys.txt");
-        Restaurant restaurant2 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/braairepublic.txt");
-        Restaurant restaurant3 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/coalgrill.txt");
-        Restaurant restaurant4 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/fishermanscatch.txt");
-        Restaurant restaurant5 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/hudsons.txt");
-        Restaurant restaurant6 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/jerrys.txt");
-        Restaurant restaurant7 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/lapizzeria.txt");
-        Restaurant restaurant8 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/mamaskitchen.txt");
-        Restaurant restaurant9 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/potchefstroomdelights.txt");
-        Restaurant restaurant10 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/spiceofindia.txt");
-        Restaurant restaurant11 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/springboksteakhouse.txt");
-        Restaurant restaurant12 = restaurantMaker("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/restaurants/sushidelight.txt");
+        Restaurant restaurant1 = restaurantMaker("src/restaurants/bennys.txt");
+        Restaurant restaurant2 = restaurantMaker("src/restaurants/braairepublic.txt");
+        Restaurant restaurant3 = restaurantMaker("src/restaurants/coalgrill.txt");
+        Restaurant restaurant4 = restaurantMaker("src/restaurants/fishermanscatch.txt");
+        Restaurant restaurant5 = restaurantMaker("src/restaurants/hudsons.txt");
+        Restaurant restaurant6 = restaurantMaker("src/restaurants/jerrys.txt");
+        Restaurant restaurant7 = restaurantMaker("src/restaurants/lapizzeria.txt");
+        Restaurant restaurant8 = restaurantMaker("src/restaurants/mamaskitchen.txt");
+        Restaurant restaurant9 = restaurantMaker("src/restaurants/potchefstroomdelights.txt");
+        Restaurant restaurant10 = restaurantMaker("src/restaurants/spiceofindia.txt");
+        Restaurant restaurant11 = restaurantMaker("src/restaurants/springboksteakhouse.txt");
+        Restaurant restaurant12 = restaurantMaker("src/restaurants/sushidelight.txt");
         // Populating restaurantsArrayList with restaurants 1-12
         restaurantsArrayList.add(restaurant1);
         restaurantsArrayList.add(restaurant2);
@@ -39,18 +42,13 @@ class Main {
         // Populating the customersArrayList with Customer instances from file customers.txt
         int i = 0;
         try {
-            File customersText = new File("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/customers.txt");
+            File customersText = new File("src/customers.txt");
             Scanner customerScanner = new Scanner(customersText);
             while (customerScanner.hasNext()) {
-//                System.out.println("Customer " + i+1);
                 String nextLine = customerScanner.nextLine();
-//                System.out.println(nextLine);
                 String[] nextLineArray = nextLine.split(", ");
-//                nextLineArray.add();
                 Customer generatedCustomer= new Customer(nextLineArray[0],nextLineArray[1],nextLineArray[2],nextLineArray[3], nextLineArray[4]);
-                // Populating customersArrayList
                 customersArrayList.add(generatedCustomer);
-//                generatedCustomer.printCustomerSummary();
                 i++;
             }
             customerScanner.close();
@@ -61,15 +59,13 @@ class Main {
         // Populating the driversArrayList with DeliveryDriver instances from file drivers.txt
         int k = 0;
         try {
-            File deliveryDriversText = new File("/Users/zmgutshini/IdeaProjects/CapstoneProject/src/drivers.txt");
+            File deliveryDriversText = new File("src/drivers.txt");
             Scanner driverScanner = new Scanner(deliveryDriversText);
             while (driverScanner.hasNext()) {
-//                System.out.println("Driver " + k+1);
                 String nextLine = driverScanner.nextLine();
                 DeliveryDriver generatedDriver= new DeliveryDriver(nextLine);
-                // Populating customersArrayList
+                // Populating deliveryDriversArrayList
                 deliveryDriversArrayList.add(generatedDriver);
-//                System.out.println(generatedDriver);
                 k++;
             }
             driverScanner.close();
@@ -79,157 +75,69 @@ class Main {
 
         Scanner userInputScanner = new Scanner(System.in);
 
-//        Restaurant testingRestaurant = createRestaurant(userInputScanner);
-//        restaurantsArrayList.add(testingRestaurant);
-//        Customer testingCustomer = createCustomer(userInputScanner);
-//        customersArrayList.add(testingCustomer);
-        Invoice newInvoice = createInvoice(userInputScanner, customersArrayList, restaurantsArrayList);
-        invoicesArrayList.add(newInvoice);
-        System.out.println();
-        System.out.println(newInvoice);
+        while(true) {
+            System.out.println();
+            System.out.println("Options: \n" +
+                    " A. Create a new invoice \n" +
+                    " B. View Customer List \n" +
+                    " C. View Restaurant List \n" +
+                    " D. View Driver List \n" +
+                    " E. Exit Program ");
+            System.out.println("Enter A, B, C, D or E:");
+            String userChoice = userInputScanner.nextLine().toUpperCase();
+            switch (userChoice){
+                case "A":
+                    Invoice newInvoice = createInvoice(userInputScanner, customersArrayList, restaurantsArrayList, deliveryDriversArrayList);
+                    invoicesArrayList.add(newInvoice);
+                    System.out.println();
+                    if(newInvoice.getInvoiceDriver() == null) {
+                        System.out.println("Order No: " + newInvoice.getInvoiceNumber() + " unsuccessful.");
+                        System.out.println("Sorry! Our drivers are too far away from you to be able to deliver to your location.");
+                        try {
+                            Formatter f = new Formatter( "src/invoicesfolder/invoice_"+ newInvoice.getInvoiceNumber() + ".txt");
+                            f.format("%s", "Sorry! Our drivers are too far away from you to be able to deliver to your location.");
+                            f.close();
+                        }
+                        catch (Exception e) {
+                            System.out.println("Error creating document");
+                        }
+                    } else {
+                        System.out.println(newInvoice);
+                        try {
+                            Formatter f = new Formatter( "src/invoicesfolder/invoice_"+ newInvoice.getInvoiceNumber() + ".txt");
+                            f.format("%s", newInvoice);
+                            f.close();
+                        }
+                        catch (Exception e) {
+                            System.out.println("Error creating document");
+                        }
+                    }
+                    break;
 
+                case "B":
+                    printCustomersList(customersArrayList);
+                    break;
 
+                case "C":
+                    printRestaurantsList(restaurantsArrayList);
+                    break;
 
+                case "D":
+                    deliveryDriversArrayList.forEach(deliveryDriver -> System.out.println(deliveryDriver));
+                    break;
 
+                case "E":
+                    System.out.println("Exiting the program.");
+                    userInputScanner.close(); // Close the scanner before exiting
+                    System.exit(0); // Terminate the program
+                    break;
 
-        userInputScanner.close();
+                default:
+                    System.out.println("Your choice is not valid. Please enter A, B, C, D or E.");
+                    break;
+            }
+        }
 
-//        Scanner scannerUserInput = new Scanner(System.in);
-//        // Enquire with user about making a new restaurant
-//        boolean isMakingNewRestaurant;
-//        System.out.println("Would you like to make a new restaurant? Enter 'yes' or 'no' ");
-//        String isMakingARestaurantInput = scannerUserInput.nextLine();
-//        isMakingARestaurantInput = isMakingARestaurantInput.toLowerCase();
-
-//        switch (isMakingARestaurantInput) {
-//            case "yes", "y" -> isMakingNewRestaurant = true;
-//            case "no", "n" -> isMakingNewRestaurant = false;
-//            default -> {
-//                isMakingNewRestaurant = false;
-//                System.out.println("Your response could not be identified. Exiting...");
-//            }
-//        }
-//        System.out.println();
-//        while (isMakingNewRestaurant) {
-//                Restaurant newRestaurant = createRestaurant();
-//                restaurantsList.add(newRestaurant);
-//                System.out.println("Would you like to make a new restaurant? Enter 'yes' or 'no' ");
-//                isMakingARestaurantInput = scannerUserInput.nextLine();
-//                isMakingARestaurantInput = isMakingARestaurantInput.toLowerCase();
-//                System.out.println("You have created" + restaurantsList.size() + " restaurant(s). Would you like to make another restaurant? Enter 'yes' or 'no' ");
-//                switch (isMakingARestaurantInput) {
-//                    case "yes", "y" -> System.out.println(" ");
-//                    case "no", "n" -> isMakingNewRestaurant = false;
-//                    default -> {
-//                        isMakingNewRestaurant = false;
-//                        System.out.println("Your response could not be recognised. You are not creating a new restaurant.");
-//                    }
-//                }
-//        }
-        // User decision to create an order. If isOrdering is false, subsequent while loop block is not executed
-//        boolean isOrdering;
-//        System.out.println("Would you like to create a new order? Enter 'yes' or 'no' ");
-//        String isOrderingInput= scannerUserInput.nextLine().toLowerCase();
-//        switch (isOrderingInput) {
-//            case "yes", "y" -> isOrdering = true;
-//            case "no", "n" -> isOrdering = false;
-//            default -> {
-//                isOrdering = false;
-//                System.out.println("Your response could not be recognised. You are not creating a new order.");
-//            }
-//        }
-
-        /* While loop to create an Invoice to be stored in Invoice ArrayList
-        * From the customer array list, the user selects the customer that is ordering.
-        * From the restaurants array list, the user selects the restaurant they would like to order from
-        * Using the aforementioned restaurant's menu, the user inputs the menu item and the quantity they would like to order
-        * The order items are added to an order item array list. The order number, customer instance, restaurant instance and order item array list
-        * are used as parameters to create an Invoice instance. This invoice instance is then added to the invoice array list.
-        * The value of isOrdering is updated at the end of the loop allowing the user to create another order or exit the ordering process */
-//        while (isOrdering) {
-//            System.out.println("Which customer would you like to create an order for?");
-//            printCustomersList(customersList);
-//            System.out.println("Enter the customer number for the customer you would like to create an order for: ");
-//            String customerNumberInput = scannerUserInput.nextLine();
-//            int customerNumber;
-//            try {
-//                customerNumber = Integer.parseInt(customerNumberInput);
-//                if (customerNumber <= 0 || customerNumber > customersList.size()) {
-//                    System.out.println("The customer number you entered is not valid. The customer number has been set to the most recent customer on record.");
-//                    customerNumber = customersList.size();
-//                }
-//            } catch (NumberFormatException e) {
-//                System.out.println("You did not enter a valid integer customer number. The customer number has been set to the most recent customer on record.");
-//                customerNumber = customersList.size();
-//            }
-//            // Converting customer number to customer index by subtracting 1.
-//            int customerIndex = customerNumber - 1;
-//            Customer invoiceCustomer = customersList.get(customerIndex);
-//            System.out.println("You have selected " + invoiceCustomer.getCustomerName() + " as the customer for this order.");
-//
-//            // Selecting the restaurant to order from
-//            int restaurantNumber;
-//            System.out.println();
-//            System.out.println("Which restaurant would you like to order from? ");
-//            printRestaurantsList(restaurantsList);
-//            System.out.println("Enter the restaurant number for the restaurant you would like to order from: ");
-//            String restaurantNumberInput = scannerUserInput.nextLine();
-//            try {
-//                restaurantNumber = Integer.parseInt(restaurantNumberInput);
-//                if (restaurantNumber <= 0 || restaurantNumber > restaurantsList.size()) {
-//                    System.out.println("The customer number you entered is not valid. The restaurant number has been set to the most recent restaurant on record.");
-//                    restaurantNumber = restaurantsList.size();
-//                }
-//            } catch (NumberFormatException e) {
-//                System.out.println("You did not enter a valid integer restaurant number. The restaurant number has been set to the most recent restaurant on record.");
-//                restaurantNumber = restaurantsList.size();
-//            }
-//            // Converting restaurant number to restaurant index
-//            int restaurantIndex = restaurantNumber - 1;
-//            Restaurant invoiceRestaurant = restaurantsList.get(restaurantIndex);
-//
-//            System.out.println("You have selected " + invoiceRestaurant.getRestaurantName() + ".");
-//            invoiceRestaurant.printRestaurantMenu();
-//
-//            // Collecting Customer Order information
-//            ArrayList<InvoiceItem> invoiceItemArrayList = new ArrayList<>();
-//            while(true) {
-//                invoiceRestaurant.printRestaurantMenu();
-//                System.out.println("Enter the menu item number for the item you would like to order (Enter 0 to Exit):");
-//                int menuItemNumber;
-//                try {
-//                    menuItemNumber = scannerUserInput.nextInt();
-//                } catch (NumberFormatException e) {
-//                    System.out.println("You did not input a valid integer.");
-//                    break;
-//                }
-//
-//                if(menuItemNumber == 0) {
-//                    break;
-//                }
-//                if(menuItemNumber < 1 || menuItemNumber > invoiceRestaurant.getRestaurantMenu().size()) {
-//                    System.out.println("You entered an invalid menu item number. Please try again.");
-//                    continue;
-//                }
-//                MenuItem selectedItem = invoiceRestaurant.getRestaurantMenu().get(menuItemNumber - 1);
-//                System.out.print("Enter the quantity: ");
-//                int selectedItemQuantity;
-//                 try {
-//                     selectedItemQuantity = scannerUserInput.nextInt();
-//                } catch (NumberFormatException e) {
-//                    System.out.println("You did not input a valid integer. The quantity has been set to 1.");
-//                     selectedItemQuantity = 1;
-//                }
-//                 if (selectedItemQuantity < 0) {
-//                     selectedItemQuantity = 0;
-//                 }
-//                 InvoiceItem selectedInvoiceItem = new InvoiceItem(selectedItemQuantity, selectedItem);
-//                 invoiceItemArrayList.add(selectedInvoiceItem);
-//
-//            }
-//
-//
-//        }
 
     }
     /* createCustomer() Method Notes
@@ -371,19 +279,21 @@ class Main {
      * From the restaurantsArrayList, the user selects the restaurant they would like to order from
      * Using the aforementioned restaurant's menu, the user inputs the menu item and the quantity they would like to order
      * The menu items are added to an array list and a quantity list.
-     * A driver is selected from deliveryDriversArrayList
-     * a new invoice item is populated with customer, restaurant, order number, and driver*/
-    public static Invoice createInvoice(Scanner scannerInvoiceUserInput, ArrayList<Customer> customersArrayList, ArrayList<Restaurant> restaurantArrayList) {
+     * An appropriate driver is selected from the populated deliveryDriversArrayList
+     * a new invoice item is populated with customer, restaurant, order number, and driver
+     * If no driver is in restaurant/customer location, driver is set to null
+     * Recommendations: in future driver array list should increment driver load (i.e. driverLoad + 1) for each order assigned to the driver */
+    public static Invoice createInvoice(Scanner scannerInvoiceUserInput, ArrayList<Customer> customersArrayList, ArrayList<Restaurant> restaurantArrayList, ArrayList<DeliveryDriver> deliveryDriversArrayList) {
         Invoice newInvoice = new Invoice();
 
-        System.out.println("Which customer would you like to create an order for?");
+        System.out.println("Which customer would you like to create an order for? (Enter 0 to create a new customer):");
         printCustomersList(customersArrayList);
-        System.out.println("Enter the customer number for the customer you would like to create an order for: ");
+        System.out.println("Enter the customer number for the customer you would like to create an order for (Enter 0 to create a new customer): ");
         String customerNumberInput = scannerInvoiceUserInput.nextLine();
         int customerNumber;
         try {
             customerNumber = Integer.parseInt(customerNumberInput);
-            if (customerNumber <= 0 || customerNumber > customersArrayList.size()) {
+            if (customerNumber < 0 || customerNumber > customersArrayList.size()) {
                 System.out.println("The customer number you entered is not valid. The customer number has been set to the most recent customer on record.");
                 customerNumber = customersArrayList.size();
             }
@@ -392,24 +302,31 @@ class Main {
                 customerNumber = customersArrayList.size();
             }
 
-        //Converting customer number to customer index by subtracting 1.
-        int customerIndex = customerNumber - 1;
-
-        //Setting customer for newInvoice
-        Customer invoiceCustomer = customersArrayList.get(customerIndex);
-        newInvoice.setInvoiceCustomer(invoiceCustomer);
-        System.out.println("Ordering for " + invoiceCustomer.getCustomerName() + "... ");
+        int customerIndex;
+        Customer invoiceCustomer;
+        if (customerNumber > 0){
+            //Converting customer number to customer index by subtracting 1.
+            customerIndex = customerNumber - 1;
+            //Setting customer for newInvoice
+            invoiceCustomer = customersArrayList.get(customerIndex);
+            newInvoice.setInvoiceCustomer(invoiceCustomer);
+        } else {
+            invoiceCustomer = createCustomer(scannerInvoiceUserInput);
+            customersArrayList.add(invoiceCustomer);
+            newInvoice.setInvoiceCustomer(invoiceCustomer);
+        }
+        System.out.println("Ordering for " + newInvoice.getInvoiceCustomer().getCustomerName() + " in " + newInvoice.getInvoiceCustomer().getCustomerLocation() + " ... ");
 
         //Selecting newInvoice restaurant for newInvoice
         int restaurantNumber;
         System.out.println();
-        System.out.println("Which restaurant would you like to order from? ");
+        System.out.println("Which restaurant would you like to order from? (Enter 0 to create a new restaurant):");
         printRestaurantsList(restaurantArrayList);
-        System.out.println("Enter the restaurant number for the restaurant you would like to order from: ");
+        System.out.println("Enter the restaurant number for the restaurant you would like to order from (Enter 0 to create a new restaurant): ");
         String restaurantNumberInput = scannerInvoiceUserInput.nextLine();
         try {
             restaurantNumber = Integer.parseInt(restaurantNumberInput);
-            if (restaurantNumber <= 0 || restaurantNumber > restaurantArrayList.size()) {
+            if (restaurantNumber < 0 || restaurantNumber > restaurantArrayList.size()) {
                 System.out.println("The restaurant number you entered is not valid. The restaurant number has been set to the most recent restaurant on record.");
                 restaurantNumber = restaurantArrayList.size();
             }
@@ -418,18 +335,23 @@ class Main {
             restaurantNumber = restaurantArrayList.size();
         }
         // Set newInvoice restaurant
-        int restaurantIndex = restaurantNumber - 1;
-        Restaurant invoiceRestaurant = restaurantArrayList.get(restaurantIndex);
+        Restaurant invoiceRestaurant;
+        if (restaurantNumber > 0) {
+            int restaurantIndex = restaurantNumber - 1;
+            invoiceRestaurant = restaurantArrayList.get(restaurantIndex);
+
+        } else {
+            invoiceRestaurant = createRestaurant(scannerInvoiceUserInput);
+        }
         newInvoice.setInvoiceRestaurant(invoiceRestaurant);
         newInvoice.setInvoiceRestaurantMenuArray(invoiceRestaurant.getRestaurantMenu());
-
-        System.out.println("Ordering from " + invoiceRestaurant.getRestaurantName() + "...");
+        System.out.println("Ordering from " + newInvoice.getInvoiceRestaurant().getRestaurantName() + "...");
 
         ArrayList<MenuItem> invoiceItemsArray = new ArrayList<>();
         ArrayList<Integer> invoiceQuantitiesArray = new ArrayList<>();
         System.out.println("Enter order notes: ");
         String invoiceSpecialInstructions = scannerInvoiceUserInput.nextLine();
-        if(invoiceSpecialInstructions==""){
+        if(invoiceSpecialInstructions.equals("")){
             invoiceSpecialInstructions ="N/A";
         }
         newInvoice.setInvoiceSpecialInstructions(invoiceSpecialInstructions);
@@ -446,6 +368,7 @@ class Main {
             }
 
             if(menuItemNumber == 0) {
+                System.out.println();
                 break;
             }
             if(menuItemNumber < 1 || menuItemNumber > invoiceRestaurant.getRestaurantMenu().size()) {
@@ -457,7 +380,7 @@ class Main {
             int selectedItemQuantity;
             try {
                 selectedItemQuantity = scannerInvoiceUserInput.nextInt();
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("You did not input a valid integer. The quantity has been set to 1.");
                 selectedItemQuantity = 1;
             }
@@ -471,7 +394,32 @@ class Main {
         newInvoice.setInvoiceItemsArray(invoiceItemsArray);
         newInvoice.setInvoiceQuantitiesArray(invoiceQuantitiesArray);
 
+        // Finding invoice driver
+        String invoiceCustomerLocation = invoiceCustomer.getCustomerLocation();
+        String invoiceRestaurantLocation = invoiceRestaurant.getRestaurantLocation();
+        DeliveryDriver invoiceDeliveryDriver = null;
+        int minimumLoad = Integer.MAX_VALUE;
+        // Loop through driver array to find location match
+        for(DeliveryDriver deliveryDriver: deliveryDriversArrayList){
+            if(deliveryDriver.getDriverLocation().equals(invoiceRestaurantLocation) && deliveryDriver.getDriverLoad() < minimumLoad && deliveryDriver.getDriverLocation().equals(invoiceCustomerLocation)) {
+                invoiceDeliveryDriver = deliveryDriver;
+                minimumLoad = deliveryDriver.getDriverLoad();
+            }
+        }
+        //If no matching driver is found driver remains set to null.
+        newInvoice.setInvoiceDriver(invoiceDeliveryDriver);
+
         System.out.println("You have successfully created a new invoice with order number " + newInvoice.getInvoiceNumber());
+
+        // To prevent exterior infinite loop from reading "0" as input in next run of the program
+        System.out.println("Options: \n" +
+                " A. Create a new invoice \n" +
+                " B. View Customer List \n" +
+                " C. View Restaurant List \n" +
+                " D. View Driver List \n" +
+                " E. Exit Program ");
+        System.out.println("Enter A, B, C, D or E:");
+        String userChoice = scannerInvoiceUserInput.nextLine().toUpperCase();
 
         return newInvoice;
     }
@@ -505,8 +453,6 @@ class Main {
                 generatedRestaurant.addRestaurantMealItem(mealName, mealPrice);
             }
             sc.close();
-//            generatedRestaurant.printRestaurantSummary();
-//            System.out.println();
             return generatedRestaurant;
         } catch (FileNotFoundException e) {
             System.out.println("Error: " + e.getMessage());
