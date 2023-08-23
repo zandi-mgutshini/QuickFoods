@@ -4,7 +4,7 @@ public class Restaurant {
     private String restaurantName;
     private String restaurantLocation;
     private String restaurantPhone;
-    private ArrayList <MenuItem> restaurantMenu;
+    private final ArrayList <MenuItem> restaurantMenu;
 
     public Restaurant(String restaurantName, String restaurantLocation, String restaurantPhone, ArrayList<MenuItem> restaurantMenu) {
         this.restaurantName = restaurantName;
@@ -49,23 +49,18 @@ public class Restaurant {
         this.restaurantPhone = restaurantPhone;
     }
 
-    public void setRestaurantMenu(ArrayList<MenuItem> restaurantMenu) {
-        this.restaurantMenu = restaurantMenu;
-    }
 
     public void addRestaurantMealItem(String mealName, double mealPrice) {
         MenuItem newMeal = new MenuItem(mealName, mealPrice);
         this.restaurantMenu.add(newMeal);
     }
-    public void addRestaurantMenuItem(MenuItem newMeal) {
-        this.restaurantMenu.add(newMeal);
-    }
+
 
     public void printRestaurantMenu() {
         System.out.println("Menu for " + this.restaurantName + ":");
         for (int i = 0; i < this.restaurantMenu.size(); i++) {
             int j = i+1;
-            System.out.println(""+ j + ". " + this.restaurantMenu.get(i).getMenuItemString());
+            System.out.println( j + ". " + this.restaurantMenu.get(i).getMenuItemString());
         }
     }
 

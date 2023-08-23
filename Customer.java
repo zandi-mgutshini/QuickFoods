@@ -1,9 +1,9 @@
 public class Customer {
-    private String customerName;
-    private String customerEmail;
-    private String customerPhone;
-    private String customerLocation;
-    private String customerAddress;
+    private final String customerName;
+    private final String customerEmail;
+    private final String customerPhone;
+    private final String customerLocation;
+    private final String customerAddress;
 
     public Customer(String customerName, String customerEmail, String customerPhone, String customerLocation, String customerAddress) {
         this.customerName = customerName;
@@ -41,33 +41,6 @@ public class Customer {
         return customerAddress;
     }
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public void setCustomerEmail(String customerEmail) {
-        this.customerEmail = customerEmail;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
-    }
-
-    public void setCustomerLocation(String customerLocation) {
-        this.customerLocation = customerLocation;
-    }
-
-    public void setCustomerAddress(String customerAddress) {
-        this.customerAddress = customerAddress;
-    }
-
-    // Used to generate the customer details invoice header
-    public String customerSummaryString() {
-        return  "Customer: " + customerName + '\n' +
-                "Email: " + customerEmail + '\n' +
-                "Phone Number: " + customerPhone + '\n' +
-                "Location: " + customerLocation;
-    }
 
     public void printCustomerSummary() {
           System.out.println("Customer: " + customerName + '\n' +

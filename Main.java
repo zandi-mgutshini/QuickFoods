@@ -40,7 +40,6 @@ class Main {
         restaurantsArrayList.add(restaurant12);
 
         // Populating the customersArrayList with Customer instances from file customers.txt
-        int i = 0;
         try {
             File customersText = new File("src/customers.txt");
             Scanner customerScanner = new Scanner(customersText);
@@ -49,7 +48,6 @@ class Main {
                 String[] nextLineArray = nextLine.split(", ");
                 Customer generatedCustomer= new Customer(nextLineArray[0],nextLineArray[1],nextLineArray[2],nextLineArray[3], nextLineArray[4]);
                 customersArrayList.add(generatedCustomer);
-                i++;
             }
             customerScanner.close();
         } catch (FileNotFoundException e) {
@@ -57,7 +55,6 @@ class Main {
         }
 
         // Populating the driversArrayList with DeliveryDriver instances from file drivers.txt
-        int k = 0;
         try {
             File deliveryDriversText = new File("src/drivers.txt");
             Scanner driverScanner = new Scanner(deliveryDriversText);
@@ -66,7 +63,6 @@ class Main {
                 DeliveryDriver generatedDriver= new DeliveryDriver(nextLine);
                 // Populating deliveryDriversArrayList
                 deliveryDriversArrayList.add(generatedDriver);
-                k++;
             }
             driverScanner.close();
         } catch (FileNotFoundException e) {
@@ -77,12 +73,13 @@ class Main {
 
         while(true) {
             System.out.println();
-            System.out.println("Options: \n" +
-                    " A. Create a new invoice \n" +
-                    " B. View Customer List \n" +
-                    " C. View Restaurant List \n" +
-                    " D. View Driver List \n" +
-                    " E. Exit Program ");
+            System.out.println("""
+                    Options:\s
+                     A. Create a new invoice\s
+                     B. View Customer List\s
+                     C. View Restaurant List\s
+                     D. View Driver List\s
+                     E. Exit Program\s""");
             System.out.println("Enter A, B, C, D or E:");
             String userChoice = userInputScanner.nextLine().toUpperCase();
             switch (userChoice){
@@ -123,13 +120,18 @@ class Main {
                     break;
 
                 case "D":
-                    deliveryDriversArrayList.forEach(deliveryDriver -> System.out.println(deliveryDriver));
+                    for (DeliveryDriver deliveryDriver : deliveryDriversArrayList) {
+                        System.out.println(deliveryDriver);
+                    }
                     break;
 
                 case "E":
                     System.out.println("Exiting the program.");
-                    userInputScanner.close(); // Close the scanner before exiting
-                    System.exit(0); // Terminate the program
+                    // Closing scanner
+                    userInputScanner.close();
+                    System.out.println("You've generated " + invoicesArrayList.size() + " invoices!");
+                    // Exiting the program
+                    System.exit(0);
                     break;
 
                 default:
@@ -151,27 +153,21 @@ class Main {
     private static Customer createCustomer(Scanner scannerCustomerUserInput) {
         // Note: Scanner is opened in main method
         System.out.println("Creating a new customer...");
-        // User input to create a customer instance
         System.out.println("Enter Customer Name and Surname: ");
         String customerName = scannerCustomerUserInput.nextLine();
-        //System.out.println("Hello, " + customerName + "!");
-        //System.out.println("Name: " + customerName);
+
 
         System.out.println("Enter email address: ");
         String customerEmail = scannerCustomerUserInput.nextLine();
-        //System.out.println("Email address: " + customerEmail );
 
         System.out.println("Enter phone number: ");
         String customerPhone = scannerCustomerUserInput.nextLine();
-        //System.out.println("Phone number: " + customerPhone);
 
         System.out.println("Enter city: ");
         String customerLocation = scannerCustomerUserInput.nextLine();
-        //System.out.println("Location: " + customerLocation );
 
         System.out.println("Enter street address: ");
         String customerAddress = scannerCustomerUserInput.nextLine();
-        //System.out.println("Street address: " + customerAddress);
 
         // Creating customer called newCustomer
         Customer newCustomer = new Customer(customerName, customerEmail, customerPhone, customerLocation, customerAddress);
@@ -412,12 +408,13 @@ class Main {
         System.out.println("You have successfully created a new invoice with order number " + newInvoice.getInvoiceNumber());
 
         // To prevent exterior infinite loop from reading "0" as input in next run of the program
-        System.out.println("Options: \n" +
-                " A. Create a new invoice \n" +
-                " B. View Customer List \n" +
-                " C. View Restaurant List \n" +
-                " D. View Driver List \n" +
-                " E. Exit Program ");
+        System.out.println("""
+                Options:\s
+                 A. Create a new invoice\s
+                 B. View Customer List\s
+                 C. View Restaurant List\s
+                 D. View Driver List\s
+                 E. Exit Program\s""");
         System.out.println("Enter A, B, C, D or E:");
         String userChoice = scannerInvoiceUserInput.nextLine().toUpperCase();
 

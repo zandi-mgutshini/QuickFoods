@@ -1,13 +1,7 @@
 public class DeliveryDriver {
-    private String driverName;
-    private String driverLocation;
-    private int driverLoad;
-
-    DeliveryDriver(String driverName, String driverLocation, int driverLoad) {
-        this.driverName = driverName;
-        this.driverLocation = driverLocation;
-        this.driverLoad = driverLoad;
-    }
+    private final String driverName;
+    private final String driverLocation;
+    private  int driverLoad;
 
     DeliveryDriver(String commaSeparatedNameLocationLoadString) {
         String[] nameLocationLoadArray = commaSeparatedNameLocationLoadString.split(", ");
@@ -31,24 +25,12 @@ public class DeliveryDriver {
         return driverName;
     }
 
-    public void setDriverName(String driverName) {
-        this.driverName = driverName;
-    }
-
     public String getDriverLocation() {
         return driverLocation;
     }
 
-    public void setDriverLocation(String driverLocation) {
-        this.driverLocation = driverLocation;
-    }
-
     public int getDriverLoad() {
         return driverLoad;
-    }
-
-    public void setDriverLoad(int driverLoad) {
-        this.driverLoad = driverLoad;
     }
 
     @Override
