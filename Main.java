@@ -1,44 +1,46 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.stream.Stream;
 
 // Note to self: Add functionality to ensure user input is not an empty string especially for createRestaurant & createCustomer name location, phone and address
 // Note to self: Write newCustomer and new restaurant text files.
 class Main {
     public static void main(String[] args) {
         ArrayList<Customer> customersArrayList = new ArrayList<>();
+        ArrayList<String> restaurantsDirectoryFiles = new ArrayList<>();
         ArrayList<Restaurant> restaurantsArrayList = new ArrayList<>();
         ArrayList<DeliveryDriver> deliveryDriversArrayList = new ArrayList<>();
         ArrayList<Invoice> invoicesArrayList = new ArrayList<>();
-        // Generating restaurants from 12 text files bennys.txt, braairepublic.txt, coalgrill.txt, fishermanscatch.txt, hudsons.txt, jerrys.txt, lapizzeria.txt, mamaskitchen.txt, potchefstroomdelights.txt, spiceofindia.txt, springboksteakhouse.txt, sushidelight.txt
-        Restaurant restaurant1 = restaurantMaker("src/restaurants/bennys.txt");
-        Restaurant restaurant2 = restaurantMaker("src/restaurants/braairepublic.txt");
-        Restaurant restaurant3 = restaurantMaker("src/restaurants/coalgrill.txt");
-        Restaurant restaurant4 = restaurantMaker("src/restaurants/fishermanscatch.txt");
-        Restaurant restaurant5 = restaurantMaker("src/restaurants/hudsons.txt");
-        Restaurant restaurant6 = restaurantMaker("src/restaurants/jerrys.txt");
-        Restaurant restaurant7 = restaurantMaker("src/restaurants/lapizzeria.txt");
-        Restaurant restaurant8 = restaurantMaker("src/restaurants/mamaskitchen.txt");
-        Restaurant restaurant9 = restaurantMaker("src/restaurants/potchefstroomdelights.txt");
-        Restaurant restaurant10 = restaurantMaker("src/restaurants/spiceofindia.txt");
-        Restaurant restaurant11 = restaurantMaker("src/restaurants/springboksteakhouse.txt");
-        Restaurant restaurant12 = restaurantMaker("src/restaurants/sushidelight.txt");
-        // Populating restaurantsArrayList with restaurants 1-12
-        restaurantsArrayList.add(restaurant1);
-        restaurantsArrayList.add(restaurant2);
-        restaurantsArrayList.add(restaurant3);
-        restaurantsArrayList.add(restaurant4);
-        restaurantsArrayList.add(restaurant5);
-        restaurantsArrayList.add(restaurant6);
-        restaurantsArrayList.add(restaurant7);
-        restaurantsArrayList.add(restaurant8);
-        restaurantsArrayList.add(restaurant9);
-        restaurantsArrayList.add(restaurant10);
-        restaurantsArrayList.add(restaurant11);
-        restaurantsArrayList.add(restaurant12);
+
+        // Fetching each restaurant filepath from src/restaurants directory and adding them to restaurantsDirectoryFiles
+        try (Stream<Path> filepath = Files.walk(Paths.get("src/restaurants"))) {
+                filepath.forEach(x -> restaurantsDirectoryFiles.add(String.valueOf(x)));
+        } catch (IOException e) {
+            try {
+                throw new IOException("Directory Not Present!");
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        // Removing each restaurant filepath that does not contain restaurant text files from the restaurantsDirectoryFiles array list
+        for(int i = 0; i < restaurantsDirectoryFiles.size(); i++){
+            if(!restaurantsDirectoryFiles.get(i).contains(".txt") || restaurantsDirectoryFiles.get(i).equals("src/restaurants/restaurantTemplate.txt")){
+                //noinspection SuspiciousListRemoveInLoop
+                restaurantsDirectoryFiles.remove(i);
+            }
+        }
+        // Populating restaurantsArrayList with files from src/restaurants with each restaurant filepath in restaurantsDirectoryFiles array list
+        for (String filepath: restaurantsDirectoryFiles) {
+            restaurantsArrayList.add(restaurantMaker(filepath));
+        }
 
         // Populating the customersArrayList with Customer instances from file customers.txt
         try {
@@ -62,7 +64,6 @@ class Main {
             while (driverScanner.hasNext()) {
                 String nextLine = driverScanner.nextLine();
                 DeliveryDriver generatedDriver= new DeliveryDriver(nextLine);
-                // Populating deliveryDriversArrayList
                 deliveryDriversArrayList.add(generatedDriver);
             }
             driverScanner.close();
@@ -72,8 +73,10 @@ class Main {
 
         Scanner userInputScanner = new Scanner(System.in);
 
+        System.out.println("***********************************");
+        System.out.println("***** WELCOME TO QUICK FOODS! *****");
         while(true) {
-            System.out.println();
+            System.out.println("***********************************");
             System.out.println("""
                     Options:\s
                      A. Create a new invoice\s
@@ -403,6 +406,7 @@ class Main {
                  D. View Driver List\s
                  E. Exit Program\s""");
         System.out.println("Enter A, B, C, D or E:");
+        //noinspection unused
         String userChoice = scannerInvoiceUserInput.nextLine().toUpperCase();
 
         return newInvoice;
@@ -419,8 +423,7 @@ class Main {
     *   The first element in the aforementioned array is the meal name and the second is the meal price as a string
     *   The meal price is parsed from String to type double and the meal name and parsed meal price are passed as fields in a new MenuItem record i.e. MenuItem(String mealName, double mealPrice)
     *   All menu items created are added to an array list which is passed into the new restaurant object as the restaurantMenu
-    * Error handling: If a text file cannot be read, an error message is output in the console
-    * Issues: relative path names are not functioning in Intelli J and eclipse IDEs so all path names in this document are absolute pathnames */
+    * Error handling: If a text file cannot be read, an error message is output in the console */
     public static Restaurant restaurantMaker(String pathname) {
         Restaurant generatedRestaurant = new Restaurant();
         try {
