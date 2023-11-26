@@ -19,7 +19,7 @@ public class Restaurant {
         this.restaurantPhone = "000000000";
         this.restaurantMenu = new ArrayList<>();
     }
-    // Getters
+    // Getters used in Invoice class toString() overidden method
     public String getRestaurantName() {
         return restaurantName;
     }
@@ -36,7 +36,7 @@ public class Restaurant {
         return restaurantMenu;
     }
 
-    // Setters
+    // Setters used in createRestaurant() method in Main
     public void setRestaurantName(String restaurantName) {
         this.restaurantName = restaurantName;
     }
@@ -48,14 +48,13 @@ public class Restaurant {
     public void setRestaurantPhone(String restaurantPhone) {
         this.restaurantPhone = restaurantPhone;
     }
-
-
+    // Used in Main Method restaurantMaker() to create menu for user generated restaurant
     public void addRestaurantMealItem(String mealName, double mealPrice) {
         MenuItem newMeal = new MenuItem(mealName, mealPrice);
         this.restaurantMenu.add(newMeal);
     }
 
-
+    // Prints the restaurant menu to console in Main method createInvoice()
     public void printRestaurantMenu() {
         System.out.println("Menu for " + this.restaurantName + ":");
         for (int i = 0; i < this.restaurantMenu.size(); i++) {
@@ -64,6 +63,7 @@ public class Restaurant {
         }
     }
 
+    // Prints new restaurant instance's summary in Main method called createRestaurant()
     public void printRestaurantSummary() {
         System.out.println("Restaurant: " + restaurantName + "\n" +
                             "Restaurant Location: " + restaurantLocation + "\n" +

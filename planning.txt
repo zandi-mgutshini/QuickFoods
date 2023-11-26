@@ -1,0 +1,70 @@
+Create a record to define a Menu Item object.
+The menu item object has 2 attributes: meal name (string) and meal price (double).
+Create a method for menu item called getMenuItemString() that returns a formatted string with the meal name and meal price.
+e.g. "%s R %.2f", where %s = meal name and %.2f = meal price formatted to 2 decimal places.
+
+Create a restaurant class with the following attributes:
+i. restaurant name (String);
+ii. restaurant location (String);
+iii. restaurant phone number (String); and
+iv. restaurant menu (Array list of menu items).
+Create 2 restaurant constructors. An empty constructor to instantiate a restaurant with no parameters, and a constructor that takes all restaurant attributes as parameters.
+Create getters and setters for all restaurant attributes.
+Create a method printRestaurantMenu() that has no return type that prints the array list of menu items using the getMenuItemString() method from the MenuItem record.
+Create a printRestaurantSummary() method that has no return type (i.e. void)- That prints the restaurant's name, location, number, and menu.
+
+Create a customer class with the following attributes:
+i. customer name (string);
+ii. customer email (string);
+iii. customer phone (string);
+iv. customer location (string); and
+v. customer address (string).
+Create 2 customer object constructors: an empty constructor that sets customer default parameters, and a constructor that accepts all attributes of customer as parameters.
+Create getters and setters for each customer attribute.
+Create a printCustomerSummary() method with a void return type that prints the customers name, email, phone number, location, and address.
+
+Create a delivery driver class with the following attributes:
+i. driver name (String);
+ii. driver location (string); and
+iii. driver load (int).
+Create a driver constructor that takes a string, commaSeparatedNameLocationLoadString as a parameter.
+This constructor should split commaSeparatedNameLocationLoadString at each comma "," to create an array of strings.
+This new array of strings, nameLocationLoadAray, will have length 3.
+The string at index 0 is assigned to driver's name.
+The string at index 1 is assigned to this driver's location.
+The string at index 2 will be parsed into an integer and assigned to this driver's load.
+The constructor described above will be used to create Delivery Drivers in the main method, given the drivers.txt file line by line.
+Create getters and setters for all attributes of DeliveryDriver.
+
+Create a class called invoice with the following attributes:
+i. invoice number (string);
+ii. invoice customer (Customer)
+iii. invoice restaurant (Restaurant);
+iv. invoice restaurant menu (array list of menu items);
+v. invoice items (array of menu items);
+vi. invoice quantities (array of integers);
+vii. invoice delivery driver (delivery driver); and
+viii. invoice special instructions (string).
+Create a constructor with no parameters that sets the default values of the invoice item.
+Create setters and getters for the attributes of an invoice object.
+Create a method getInvoiceTotal() that returns a double called the invoice total.
+The method getInvoiceTotal() loops through the invoice items array and the invoice quantities array. The product of the meal price and corresponding quantity is added to invoice total.
+Create a method called invoiceItemQuantityPriceString() that returns a string, This method returns a formatted string of quantity meal name and meal price for each menu item in the invoice items array.
+Override the toString() method and generate a string that displays all the invoice information i.e.:
+"Order number 1234
+Customer: Jill Jack
+Email: jilljack@yahoo.com
+Phone number: 123 456 7890
+Location: Cape Town
+You have ordered the following from Aesop’s Pizza in Cape Town:
+1 x Pepperoni pizza (R78.00)
+2 x Hawaiian pizza (R82.00)
+Special instructions: Extra tomato base on the Pepperoni pizza
+Total: R242.00
+John Krill is nearest to the restaurant and so he will be delivering your order to you at:
+12 Cherry Road
+Plumstead
+If you need to contact the restaurant, their number is 098 765 4321."
+
+
+
