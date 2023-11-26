@@ -3,6 +3,7 @@ public class DeliveryDriver {
     private final String driverLocation;
     private  int driverLoad;
 
+    // Constructor used to create driver from string in the format("%s, %s, %d", driverName, driverLocation, driverLoad)
     DeliveryDriver(String commaSeparatedNameLocationLoadString) {
         String[] nameLocationLoadArray = commaSeparatedNameLocationLoadString.split(", ");
         this.driverName = nameLocationLoadArray[0];
@@ -16,11 +17,14 @@ public class DeliveryDriver {
         }
     }
 
+    // Default values for driver. Used in empty Invoice() constructor.
     DeliveryDriver() {
         this.driverName = "Generic Driver";
         this.driverLocation = "Unknown";
         this.driverLoad = 0;
     }
+
+    // Getters used in Invoice class toString() overridden method.
     public String getDriverName() {
         return driverName;
     }

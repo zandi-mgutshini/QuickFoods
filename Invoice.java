@@ -2,30 +2,19 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class Invoice {
-    private String invoiceNumber;
+    private final String invoiceNumber;
     private Customer invoiceCustomer;
     private Restaurant invoiceRestaurant;
-    private ArrayList <MenuItem> invoiceRestaurantMenuArray;
     private ArrayList <MenuItem> invoiceItemsArray;
     private ArrayList<Integer> invoiceQuantitiesArray;
     private DeliveryDriver invoiceDriver;
     private String invoiceSpecialInstructions;
 
+    // Constructor used in createInvoice() method in Main
     public Invoice() {
         this.invoiceNumber = (UUID.randomUUID()).toString();
         this.invoiceCustomer = new Customer();
         this.invoiceRestaurant = new Restaurant();
-        this.invoiceRestaurantMenuArray = new ArrayList<>();
-        this.invoiceItemsArray = new ArrayList<>();
-        this.invoiceQuantitiesArray = new ArrayList<>();
-        this.invoiceDriver = new DeliveryDriver();
-        this.invoiceSpecialInstructions = "N/A";
-    }
-    public Invoice(Customer invoiceCustomer, Restaurant invoiceRestaurant) {
-        this.invoiceNumber = (UUID.randomUUID()).toString();
-        this.invoiceCustomer = invoiceCustomer;
-        this.invoiceRestaurant = invoiceRestaurant;
-        this.invoiceRestaurantMenuArray = invoiceRestaurant.getRestaurantMenu();
         this.invoiceItemsArray = new ArrayList<>();
         this.invoiceQuantitiesArray = new ArrayList<>();
         this.invoiceDriver = new DeliveryDriver();
@@ -34,10 +23,6 @@ public class Invoice {
 
     public String getInvoiceNumber() {
         return invoiceNumber;
-    }
-
-    public void setInvoiceNumber(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
     }
 
     public Customer getInvoiceCustomer() {
@@ -56,24 +41,8 @@ public class Invoice {
         this.invoiceRestaurant = invoiceRestaurant;
     }
 
-    public ArrayList<MenuItem> getInvoiceRestaurantMenuArray() {
-        return invoiceRestaurantMenuArray;
-    }
-
-    public void setInvoiceRestaurantMenuArray(ArrayList<MenuItem> invoiceRestaurantMenuArray) {
-        this.invoiceRestaurantMenuArray = invoiceRestaurantMenuArray;
-    }
-
-    public ArrayList<MenuItem> getInvoiceItemsArray() {
-        return invoiceItemsArray;
-    }
-
     public void setInvoiceItemsArray(ArrayList<MenuItem> invoiceItemsArray) {
         this.invoiceItemsArray = invoiceItemsArray;
-    }
-
-    public ArrayList<Integer> getInvoiceQuantitiesArray() {
-        return invoiceQuantitiesArray;
     }
 
     public void setInvoiceQuantitiesArray(ArrayList<Integer> invoiceQuantitiesArray) {
@@ -88,15 +57,12 @@ public class Invoice {
         this.invoiceDriver = invoiceDriver;
     }
 
-    public String getInvoiceSpecialInstructions() {
-        return invoiceSpecialInstructions;
-    }
-
     public void setInvoiceSpecialInstructions(String invoiceSpecialInstructions) {
         this.invoiceSpecialInstructions = invoiceSpecialInstructions;
     }
 
-    public double getInvoiceTotal() {
+    // Getting the invoice total for toString() method
+    private double getInvoiceTotal() {
         double invoiceTotal = 0d;
         for(int i =0; i<invoiceQuantitiesArray.size(); i++) {
             invoiceTotal += (invoiceItemsArray.get(i).mealPrice()) * (invoiceQuantitiesArray.get(i)) ;
@@ -104,19 +70,17 @@ public class Invoice {
         return invoiceTotal;
     }
 
-    public String getInvoiceDriver(ArrayList<DeliveryDriver> deliveryDriverArrayList) {
-        return "";
-    }
-    public String invoiceItemQuantityPriceString() {
-        String invoiceItemQuantityPriceString = "";
+    // Creating invoice items list for toString() Method
+    private String invoiceItemQuantityPriceString() {
+        StringBuilder invoiceItemQuantityPriceString = new StringBuilder();
         for (int i = 0; i < this.invoiceItemsArray.size(); i++) {
-            invoiceItemQuantityPriceString += this.invoiceQuantitiesArray.get(i) + " x " + invoiceItemsArray.get(i).getMenuItemString() + '\n';
+            invoiceItemQuantityPriceString.append(this.invoiceQuantitiesArray.get(i)).append(" x ").append(invoiceItemsArray.get(i).getMenuItemString()).append('\n');
         }
-
-        return invoiceItemQuantityPriceString;
+        return invoiceItemQuantityPriceString.toString();
     }
 
     @Override
+    // Method to create the invoice string for invoice.txt file
     public String toString() {
         return "Order No: " + this.invoiceNumber + "\n" +
                 "Customer: " + this.invoiceCustomer.getCustomerName() + "\n" +
@@ -127,8 +91,9 @@ public class Invoice {
                 this.invoiceItemQuantityPriceString() +
                 "Special instructions: " + this.invoiceSpecialInstructions + '\n' +
                 "Total: R" + String.format("%.2f", this.getInvoiceTotal())  + '\n' +
-                this.invoiceDriver.getDriverName() + " is the nearest to the restaurant and so they will be delivering your order to you at:  \n " + this.invoiceCustomer.getCustomerAddress() + "\n" +
+                this.invoiceDriver.getDriverName() + " is the nearest to the restaurant, so they will be delivering your order to you at:  \n " + this.invoiceCustomer.getCustomerAddress() + "\n" +
                 "If you need to contact the restaurant, their number is " + this.invoiceRestaurant.getRestaurantPhone() + ". "
                 ;
     }
+
 }
