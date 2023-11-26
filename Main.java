@@ -83,61 +83,48 @@ class Main {
                      E. Exit Program\s""");
             System.out.println("Enter A, B, C, D or E:");
             String userChoice = userInputScanner.nextLine().toUpperCase();
-            switch (userChoice){
-                case "A":
+            switch (userChoice) {
+                case "A" -> {
                     Invoice newInvoice = createInvoice(userInputScanner, customersArrayList, restaurantsArrayList, deliveryDriversArrayList);
                     invoicesArrayList.add(newInvoice);
                     System.out.println();
-                    if(newInvoice.getInvoiceDriver() == null) {
+                    if (newInvoice.getInvoiceDriver() == null) {
                         System.out.println("Order No: " + newInvoice.getInvoiceNumber() + " unsuccessful.");
                         System.out.println("Sorry! Our drivers are too far away from you to be able to deliver to your location.");
                         try {
-                            Formatter f = new Formatter( "src/invoicesfolder/invoice_"+ newInvoice.getInvoiceNumber() + ".txt");
+                            Formatter f = new Formatter("src/invoicesfolder/invoice_" + newInvoice.getInvoiceNumber() + ".txt");
                             f.format("%s", "Sorry! Our drivers are too far away from you to be able to deliver to your location.");
                             f.close();
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             System.out.println("Error creating document");
                         }
                     } else {
                         System.out.println(newInvoice);
                         try {
-                            Formatter f = new Formatter( "src/invoicesfolder/invoice_"+ newInvoice.getInvoiceNumber() + ".txt");
+                            Formatter f = new Formatter("src/invoicesfolder/invoice_" + newInvoice.getInvoiceNumber() + ".txt");
                             f.format("%s", newInvoice);
                             f.close();
-                        }
-                        catch (Exception e) {
+                        } catch (Exception e) {
                             System.out.println("Error creating document");
                         }
                     }
-                    break;
-
-                case "B":
-                    printCustomersList(customersArrayList);
-                    break;
-
-                case "C":
-                    printRestaurantsList(restaurantsArrayList);
-                    break;
-
-                case "D":
+                }
+                case "B" -> printCustomersList(customersArrayList);
+                case "C" -> printRestaurantsList(restaurantsArrayList);
+                case "D" -> {
                     for (DeliveryDriver deliveryDriver : deliveryDriversArrayList) {
                         System.out.println(deliveryDriver);
                     }
-                    break;
-
-                case "E":
+                }
+                case "E" -> {
                     System.out.println("Exiting the program.");
                     // Closing scanner
                     userInputScanner.close();
                     System.out.println("You've generated " + invoicesArrayList.size() + " invoices!");
                     // Exiting the program
                     System.exit(0);
-                    break;
-
-                default:
-                    System.out.println("Your choice is not valid. Please enter A, B, C, D or E.");
-                    break;
+                }
+                default -> System.out.println("Your choice is not valid. Please enter A, B, C, D or E.");
             }
         }
 
@@ -341,7 +328,6 @@ class Main {
             invoiceRestaurant = createRestaurant(scannerInvoiceUserInput);
         }
         newInvoice.setInvoiceRestaurant(invoiceRestaurant);
-        newInvoice.setInvoiceRestaurantMenuArray(invoiceRestaurant.getRestaurantMenu());
         System.out.println("Ordering from " + newInvoice.getInvoiceRestaurant().getRestaurantName() + "...");
 
         ArrayList<MenuItem> invoiceItemsArray = new ArrayList<>();
