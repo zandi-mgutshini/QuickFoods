@@ -6,6 +6,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 // Note to self: Add functionality to ensure user input is not an empty string especially for createRestaurant & createCustomer name location, phone and address
+// Note to self: Write newCustomer and new restaurant text files.
 class Main {
     public static void main(String[] args) {
         ArrayList<Customer> customersArrayList = new ArrayList<>();
