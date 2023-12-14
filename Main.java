@@ -242,12 +242,12 @@ class Main {
     }
 
     /* printCustomersList(...) method notes:
-     * Prints a numbered list of the customers names and emails stored in customersArrayList
+     * Prints a numbered list of the customers names and locations stored in customersArrayList
      * Used in createInvoice() for customer selection*/
     public static void printCustomersList(ArrayList<Customer> customersArrayList) {
         for(int i = 0; i<customersArrayList.size(); i++ ) {
             int j = i + 1;
-            System.out.println( j + ". " + customersArrayList.get(i).getCustomerName() + " (" + customersArrayList.get(i).getCustomerEmail() + ")");
+            System.out.println( j + ". " + customersArrayList.get(i).getCustomerName() + " (" + customersArrayList.get(i).getCustomerLocation() + ")");
         }
     }
     /* printRestaurantsList(...) method notes:
