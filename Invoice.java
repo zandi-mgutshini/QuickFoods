@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -82,7 +84,10 @@ public class Invoice {
     @Override
     // Method to create the invoice string for invoice.txt file
     public String toString() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime now = LocalDateTime.now();
         return "Order No: " + this.invoiceNumber + "\n" +
+                "Date: " + dtf.format(now) + "\n" +
                 "Customer: " + this.invoiceCustomer.getCustomerName() + "\n" +
                 "Email: " + this.invoiceCustomer.getCustomerEmail() + "\n" +
                 "Cell: " + this.invoiceCustomer.getCustomerPhone() + "\n" +
